@@ -54,7 +54,7 @@ sudo apt install pocl-opencl-icd ocl-icd-libopencl1
 To push this repository to GitHub, you can use the following commands:
 
 ```bash
-git remote add origin https://github.com/YOUR_USERNAME/quantum-edge-detection.git
+git remote add origin https://github.com/Sriaswat-Srinath/quantum-edge-detection.git
 
 # Set the primary branch name
 git branch -M main
