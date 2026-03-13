@@ -22,7 +22,7 @@ The pipeline operates in two distinct phases:
 ## 📁 Repository Structure
 
 ```text
-hybrid-quantum-denoise-opencl/
+quantum-edge-detection/
 ├── assets/                  # Example outputs and diagrams
 ├── examples/                # Example input images (e.g., tiger.jpg)
 ├── notebooks/               # Jupyter Notebooks exploring the CUDA/Quantum implementation
@@ -49,6 +49,25 @@ If you do not have OpenCL platforms installed and want to run via a CPU runtime,
 ```bash
 sudo apt update
 sudo apt install pocl-opencl-icd ocl-icd-libopencl1
+```
+
+To push this repository to GitHub, you can use the following commands:
+
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/quantum-edge-detection.git
+
+# Set the primary branch name
+git branch -M main
+
+# Push your code to GitHub
+git push -u origin main
+```
+
+If you prefer, you can authenticate via the GitHub CLI directly from your terminal first. To do that, run:
+```bash
+sudo apt install gh
+gh auth login
+gh repo create quantum-edge-detection --public --source=. --remote=origin --push
 ```
 
 ## 💻 Quick Start
