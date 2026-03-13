@@ -1,0 +1,6 @@
+qiskit>=1.0
+qiskit-aer>=1.0
+pyopencl>=2023.2
+scikit-image>=0.20
+matplotlib>=3.7
+numpy>=1.24
