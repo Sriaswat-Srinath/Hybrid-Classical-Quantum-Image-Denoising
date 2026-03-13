@@ -35,7 +35,11 @@ shape = clean.shape
 # ---------- 2. quantum denoise (CPU) ---------------------------------------
 def quantum_denoise(vec, shape=(64, 64)):
     n = int(np.ceil(np.log2(np.prod(shape))))   # 14 for 128×128
-    sv  = np.pad(vec, (0, (1 << n) - len(vec)), 'constant')
+    pad_len = (1 << n) - len(vec)
+    if pad_len > 0:
+        sv  = np.pad(vec, (0, pad_len), 'constant')
+    else:
+        sv = vec.copy()
     qc  = QuantumCircuit(n)
     qc.set_statevector(sv)
     qc.append(QFTGate(n), range(n))
@@ -56,9 +60,8 @@ def quantum_denoise(vec, shape=(64, 64)):
     return prob
 
 # ---------- usage ------------------------------------------------------------
-shape = (64, 64)              # ≤ 16384 pixels
 prob_q = quantum_denoise(vec, shape)
-print('✅ 12-qubit quantum denoised')
+print('✅ 14-qubit quantum denoised')
 
 # ---------- 3. OpenCL edge filter -------------------------------------------
 # ---- choose first GPU / CPU OpenCL platform
