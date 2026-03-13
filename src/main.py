@@ -3,7 +3,7 @@
 # 14-qubit QFT-Grover denoising  +  OpenCL edge filter
 # POCL / Intel / AMD / NVIDIA OpenCL – local PC
 # ------------------------------------------------
-import numpy as np, cv2, time, json
+import numpy as np, cv2, time, json, sys, os
 import pyopencl as cl
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library import QFTGate
@@ -21,7 +21,11 @@ def vec2img(vec, shape):
     return im
 
 # ---------- 1. load & noise -------------------------------------------------
-clean = cv2.resize(cv2.imread('/home/user/Pictures/Screenshots/ai-generated-picture-of-a-tiger-walking-in-the-forest-photo.jpg', 0), (128,128))
+img_path = sys.argv[1] if len(sys.argv) > 1 else 'examples/tiger.jpg'
+clean = cv2.resize(cv2.imread(img_path, 0), (128,128))
+if clean is None:
+    print(f"Error: Could not read image at {img_path}")
+    sys.exit(1)
 noisy = clean + np.random.normal(0,25,clean.shape)
 noisy = np.uint8(np.clip(noisy,0,255))
 vec   = img2vec(noisy)
@@ -137,7 +141,8 @@ ax[1].imshow(vec2img(prob_q, shape), cmap='gray'); ax[1].set_title('Denoised')
 ax[2].imshow(prob_u8, cmap='gray'); ax[2].set_title('OpenCL edges')
 for a in ax: a.axis('off')
 plt.tight_layout()
-plt.savefig("hybridquan_output.png")
+os.makedirs("outputs", exist_ok=True)
+plt.savefig("outputs/hybridquan_output.png")
 
 # ---------- 5.  four-panel PNG export  -------------------------------------
 fig, ax = plt.subplots(1, 4, figsize=(16, 4))
@@ -155,7 +160,7 @@ ax[3].imshow(canny_edges, cmap='gray')
 ax[3].set_title('OpenCL Canny'); ax[3].axis('off')
 
 plt.tight_layout()
-out_file = '/home/user/hybrid-quantum-denoise-opencl/opencl_impl'
+out_file = 'outputs/hybridquan_sobel_canny.png'
 plt.savefig(out_file, dpi=300, bbox_inches='tight')
 print('Saved →', out_file)
 plt.show()
