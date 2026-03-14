@@ -54,7 +54,7 @@ sudo apt install pocl-opencl-icd ocl-icd-libopencl1
 To push this repository to GitHub, you can use the following commands:
 
 ```bash
-git remote add origin https://github.com/Sriaswat-Srinath/quantum-edge-detection.git
+git remote add origin https://github.com/Sriaswat-Srinath/Hybrid-Classical-Quantum-Image-Denoising.git
 
 # Set the primary branch name
 git branch -M main
@@ -67,7 +67,7 @@ If you prefer, you can authenticate via the GitHub CLI directly from your termin
 ```bash
 sudo apt install gh
 gh auth login
-gh repo create quantum-edge-detection --public --source=. --remote=origin --push
+gh repo create Hybrid-Classical-Quantum-Image-Denoising --public --source=. --remote=origin --push
 ```
 
 ## 💻 Quick Start
